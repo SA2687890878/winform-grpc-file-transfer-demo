@@ -24,7 +24,17 @@ message FileOffsetResponse {
   int64 offset = 1;
 }
 
+message FileCheckRequest {
+  string fileName = 1;
+  string md5 = 2;
+}
+
+message FileCheckResponse {
+  bool exists = 1;
+}
+
 service FileTransferService {
   rpc Upload(stream FileChunk) returns (UploadStatus);
   rpc GetUploadedOffset(FileQueryRequest) returns (FileOffsetResponse);
+  rpc CheckFileExists (FileCheckRequest) returns (FileCheckResponse);    //秒传检测
 }
